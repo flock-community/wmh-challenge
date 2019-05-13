@@ -17,6 +17,9 @@ RUN pip install opencv-contrib-python && \
     conda install -c conda-forge nilearn -y && \
     pip install niftynet
 
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install jupyter
+
 RUN echo "source activate WMH" > ~/.bashrc
 
 EXPOSE 8888
