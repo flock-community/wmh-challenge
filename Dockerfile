@@ -18,7 +18,7 @@ RUN pip install opencv-contrib-python && \
     pip install niftynet
 
 RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install jupyter
+    python3 -m pip install jupyterlab
 
 RUN echo "source activate WMH" > ~/.bashrc
 
