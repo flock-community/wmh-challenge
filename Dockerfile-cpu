@@ -1,0 +1,31 @@
+FROM continuumio/miniconda3:latest
+
+WORKDIR /app
+
+ENV PATH /opt/conda/envs/env/bin:$PATH
+
+RUN conda create --name WMH -y && \
+    /bin/bash -c conda activate WMH && \
+    conda install 'tensorflow=1.12.0=mkl*' -y && \
+    conda install scikit-learn -y && \
+    conda install scikit-image -y && \
+    conda install matplotlib -y && \
+    pip install opencv-contrib-python && \
+    conda install -c https://conda.anaconda.org/simpleitk SimpleITK -y && \
+    conda install -c conda-forge nilearn -y && \
+    pip install niftynet && \
+    echo "source activate WMH" > ~/.bashrc && \
+    conda clean -a -y
+
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install jupyterlab && \
+    apt-get update && \
+    apt-get install xvfb -y && \
+    apt-get clean && \
+    apt-get autoremove -y
+
+COPY start.sh /app
+
+EXPOSE 8888
+
+ENTRYPOINT ["/app/start.sh"]
